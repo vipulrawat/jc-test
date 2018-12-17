@@ -1,44 +1,38 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Steps
+---
+1. `yarn` or `npm install`
+2. `yarn start` or `npm run start`
 
-## Available Scripts
+# Tests
+---
+  `yarn test`
 
-In the project directory, you can run:
+# Design Desicion
+---
+I started with creating the generator function first as it contains the core business logic of the task. However, Initially I wrote less tests for these functions as they are pure mathematical functions the are infinite generators (expect partialSum).
 
-### `npm start`
+## Backend
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+In Backend, the pure generators are kept in -sequencers and it is imported in `index.js`.
+The main function in `index.js` is `function generator(gen, ...args)`, _gen_ is the string which is selected by switch statement and initialized to the proper sequencer. Default is taken as _prime_.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Frontend
 
-### `npm test`
+Frontend, includes the dropdown menu which lets to select the _sequencer_, to use is one has to click __Activate__ and then the __Next__ will generate the _values_.
+If the _sequencer_ requires any argument then it enables the input tags where one can add arguments to the _sequencer_.
+After, changing the arguments one has to click __Set__ and __Activate__ to use __Next__.
+The error will be handled if any sequence throw error.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Current user flow is:
 
-### `npm run build`
+If sequencer is among _prime_, _factorial_, _fibonacci_.
+__Select__ => __Activate__ => __Next__
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+For _range_ and _partialSum_.
+__Select__ => __Activate__ => _(Change arguments)_ => __Set__ => __Activate__ => __Next__
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Limitations
+---
+- `factorial()` cannot generate large factorials as memory constraint of number.
+- Didn't implemented the `accumulator()`.
+- User flow is difficult.
